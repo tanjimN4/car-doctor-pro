@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    reactStrictMode: true,
+  images: {
+    domains: ['img.daisyui.com','i.ibb.co'],
+     // Add the domain here
+  },
+};
 
 export default nextConfig;
