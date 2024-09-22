@@ -3,11 +3,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { FaGoogle } from "react-icons/fa";
+import {signIn} from 'next-auth/react';
+import SocialSignin from '@/components/shared/SocialSignin';
 
 const login = () => {
    
-    const handleLogin=async()=>{
-
+    const handleLogin=async(e)=>{
+        e.preventDefault()
+        const email=e.target.email.value
+        const password=e.target.password.value
+        const res=await signIn('credentials',{
+            email,password,redirect:false
+        })
+        console.log(res);
+        
     }
     
     return (
@@ -52,8 +61,7 @@ const login = () => {
                         </form>
                         <div>
                             <h6 className="my-12 text-center">or sign in with</h6>
-                            {/* <SocialSignin /> */}
-                            <FaGoogle />
+                            <SocialSignin />
                             <h6 className="my-12 text-center">
                                 not have account ?{" "}
                                 <Link className="text-primary font-semibold" href={"/signup"}>

@@ -1,14 +1,38 @@
 'use client'
+import SocialSignin from '@/components/shared/SocialSignin';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 const signUp = () => {
-    const handleSingup=()=>{
-
+    const handleSingup=async(e)=>{
+        const newUser={
+            name:e.target.name.value,
+            email:e.target.email.value,
+            password:e.target.password.value
+        }
+        try {
+            const response = await fetch('signup/api', {
+              method: 'POST',  // Ensure POST method is used
+              headers: {
+                'Content-Type': 'application/json',  // Send as JSON
+              },
+              body: JSON.stringify(newUser),  // Convert user data to JSON
+            });
+        
+            if (response.ok) {
+              const data = await response.json();
+              console.log('User created:', data);
+            } else {
+              throw new Error('Failed to create user');
+            }
+          } catch (error) {
+            console.error('Error creating user:', error);
+          }
+        
     }
     return (
-        <div className="container px-24 mx-auto py-24">
+        <div className="container px-24 mx-auto py-24 text-black">
             <div className="grid grid-cols-2 gap-12 items-center">
                 <div>
                     <Image
@@ -56,7 +80,7 @@ const signUp = () => {
                     </form>
                     <div>
                         <h6 className="my-12 text-center">or sign in with</h6>
-                        {/* <SocialSignin /> */}
+                        <SocialSignin />
                         <h6 className="my-12 text-center">
                             Already have account ?{" "}
                             <Link className="text-primary font-semibold" href={"/login"}>

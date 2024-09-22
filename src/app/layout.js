@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import AuthProvider from "@/services/AuthProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,13 +23,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme='carDoctor'>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Navbar></Navbar>
-        {children}
-        <Footer></Footer>
-      </body>
+     
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+           <AuthProvider>
+          <Navbar></Navbar>
+          {children}
+          <Footer></Footer>
+          </AuthProvider>
+        </body>
     </html>
   );
 }

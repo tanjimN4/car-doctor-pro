@@ -1,9 +1,14 @@
+"use client"
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { IoCartOutline, IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
+    const session=useSession()
+    console.log(session);
+    
     const links=[
         {
             title:'Home',
@@ -77,6 +82,9 @@ const Navbar = () => {
                 <IoCartOutline className='text-xl'/>
                 <IoSearch className='text-xl' />
                     <a className="btn btn-primary btn-outline px-4">Appoinment</a>
+                    {
+                       !session.data? <Link href='/login' className='btn btn-success'>Login</Link> : <button className='btn btn-error' onClick={()=>signOut()}>LogOut</button>
+                    }
                 </div>
                 </div>
             </div>

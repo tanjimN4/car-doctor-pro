@@ -2,6 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+const getServices =async(id)=>{
+  const res=await fetch(`http://localhost:3000/services/api/${id}`)
+  const services=res.json()
+  return services
+}
+
 const ServiceCard = ({service}) => {
     const {title, img, price, _id} = service || {};
   return (
